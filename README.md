@@ -1,7 +1,7 @@
 # Machine_learning
 Machine_learning_sai
 
-IMP CODE
+# IMP CODE
 import requests
 
 url = "https://raw.githubusercontent.com/PhapaleSai/Machine_learning/main/1st_code"
