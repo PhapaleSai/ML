@@ -1,0 +1,71 @@
+##SLIP 8A,28A
+ ## Write a python program to categorize the given news text into one of the available 20 
+##categories of news groups, using multinomial Naïve Bayes machine learning model
+
+from sklearn.datasets import fetch_20newsgroups
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load dataset
+newsgroups = fetch_20newsgroups(subset='all')
+X = TfidfVectorizer(stop_words='english').fit_transform(newsgroups.data)
+y = newsgroups.target
+
+# Split into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Train Multinomial Naive Bayes
+model = MultinomialNB()
+model.fit(X_train, y_train)
+
+# Predict and evaluate
+y_pred = model.predict(X_test)
+print(f"Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
+print(classification_report(y_test, y_pred, target_names=newsgroups.target_names))
+------------------------------------------------------------------------------------------------------------------------------
+ ##SLIP 8B,20B
+ ##Write a python program to implement Decision Tree whether or not to play Tennis
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+# 1. Create a dummy weather dataset
+data = {
+    'Outlook': ['Sunny', 'Sunny', 'Overcast', 'Rain', 'Rain', 'Rain', 'Overcast', 'Sunny', 'Sunny', 'Rain', 'Sunny', 'Overcast', 'Overcast', 'Rain'],
+    'Temperature': ['Hot','Hot','Hot','Mild','Cool','Cool','Cool','Mild','Cool','Mild','Mild','Mild','Hot','Mild'],
+    'Humidity': ['High','High','High','High','Normal','Normal','Normal','High','Normal','Normal','Normal','High','Normal','High'],
+    'Windy': ['False','True','False','False','False','True','True','False','False','False','True','True','False','True'],
+    'PlayTennis': ['No','No','Yes','Yes','Yes','No','Yes','No','Yes','Yes','Yes','Yes','Yes','No']
+}
+
+df = pd.DataFrame(data)
+
+# 2. Convert categorical variables to numeric using one-hot encoding
+X = pd.get_dummies(df.drop('PlayTennis', axis=1))
+y = df['PlayTennis'].map({'Yes':1,'No':0})
+
+# 3. Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# 4. Train Decision Tree Classifier
+model = DecisionTreeClassifier(criterion='entropy', random_state=0)
+model.fit(X_train, y_train)
+
+# 5. Make predictions
+y_pred = model.predict(X_test)
+
+# 6. Evaluate the model
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# 7. Visualize the Decision Tree
+plt.figure(figsize=(12,8))
+tree.plot_tree(model, feature_names=X.columns, class_names=['No','Yes'], filled=True)
+plt.show()
+---------------------------------------------------------------------------------------------------------------------------------------

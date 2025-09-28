@@ -1,0 +1,46 @@
+# Slip 10 A
+#Write a python program to transform data with Principal Component Analysis (PCA).Use iris dataset
+
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+iris = load_iris()
+X_scaled = StandardScaler().fit_transform(iris.data)
+
+X_pca = PCA(n_components=2).fit_transform(X_scaled)
+df = pd.DataFrame(X_pca, columns=['PC1','PC2'])
+df['Target'] = iris.target
+
+print(df.head())
+sns.scatterplot(x='PC1', y='PC2', hue='Target', data=df, palette='Set1')
+plt.title('PCA of Iris Dataset'); plt.show()
+------------------------------------------------------------------------------------
+ ##SLIP 10B,1B
+ ##Write a Python program to prepare Scatter Plot for Iris Dataset. Convert Categorical   
+##values in to numeric
+
+ # Import necessary libraries
+ import pandas as pd
+ import seaborn as sns
+ import matplotlib.pyplot as plt
+ from sklearn.datasets import load_iris
+ # Load Iris dataset
+ iris = load_iris()
+ df = pd.DataFrame(iris.data, columns=iris.feature_names)
+ df['species'] = iris.target  # Adding target as species column
+ # Convert categorical values to numeric (if not already)
+ # In this case, iris.target is already numeric, so no conversion is necessary.
+ # Otherwise, you could use df['species'] = df['species'].astype('category').cat.codes
+ # Plot a scatter plot for two features: sepal length and petal length
+ plt.figure(figsize=(8, 6))
+ sns.scatterplot(x=df['sepal length (cm)'], y=df['petal length (cm)'], hue=df['species'], palette="viridis")
+ plt.title("Scatter Plot of Sepal Length vs. Petal Length")
+ plt.xlabel("Sepal Length (cm)")
+ plt.ylabel("Petal Length (cm)")
+ plt.legend(title="Species")
+ plt.show()
+-------------------------------------------------------------------------------------------

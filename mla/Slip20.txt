@@ -1,0 +1,81 @@
+##SLIP 9A,20A
+## Implement Ridge Regression and Lasso regression model using boston_houses.csv  
+##and take only ‘RM’ and ‘Price’ of the houses. Divide the data as training and testing  
+##data. Fit line using Ridge regression and to find price of a house if it contains 5 rooms 
+##and compare results
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge, Lasso
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+
+# Dummy dataset
+df = pd.DataFrame({'RM':[6,5.5,6.2,5.9,6.5,5,6.8,5.8,6.1,5.2],
+                   'Price':[21,18,24,20,25,15,28,19,23,16] } )
+
+X, y = df[['RM']], df['Price']
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
+# Ridge & Lasso
+ridge, lasso = Ridge(alpha=1.0).fit(X_train,y_train), Lasso(alpha=0.1).fit(X_train,y_train)
+y_pred_ridge, y_pred_lasso = ridge.predict(X_test), lasso.predict(X_test)
+
+# Predictions for 5 rooms
+print("Ridge MSE:", mean_squared_error(y_test,y_pred_ridge))
+print("Lasso MSE:", mean_squared_error(y_test,y_pred_lasso))
+print("Price (5 rooms) - Ridge:", ridge.predict([[5]])[0])
+print("Price (5 rooms) - Lasso:", lasso.predict([[5]])[0])
+
+# Plot
+plt.scatter(X,y,color='blue')
+plt.plot(X,ridge.predict(X),color='red',label='Ridge')
+plt.plot(X,lasso.predict(X),color='green',label='Lasso')
+plt.xlabel('RM'); plt.ylabel('Price'); plt.legend(); plt.show()
+---------------------------------------------------------------------------------------------------
+ ##SLIP 8B,20B
+ ##Write a python program to implement Decision Tree whether or not to play Tennis
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn import tree
+import matplotlib.pyplot as plt
+
+# 1. Create a dummy weather dataset
+data = {
+    'Outlook': ['Sunny', 'Sunny', 'Overcast', 'Rain', 'Rain', 'Rain', 'Overcast', 'Sunny', 'Sunny', 'Rain', 'Sunny', 'Overcast', 'Overcast', 'Rain'],
+    'Temperature': ['Hot','Hot','Hot','Mild','Cool','Cool','Cool','Mild','Cool','Mild','Mild','Mild','Hot','Mild'],
+    'Humidity': ['High','High','High','High','Normal','Normal','Normal','High','Normal','Normal','Normal','High','Normal','High'],
+    'Windy': ['False','True','False','False','False','True','True','False','False','False','True','True','False','True'],
+    'PlayTennis': ['No','No','Yes','Yes','Yes','No','Yes','No','Yes','Yes','Yes','Yes','Yes','No']
+}
+
+df = pd.DataFrame(data)
+
+# 2. Convert categorical variables to numeric using one-hot encoding
+X = pd.get_dummies(df.drop('PlayTennis', axis=1))
+y = df['PlayTennis'].map({'Yes':1,'No':0})
+
+# 3. Split dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# 4. Train Decision Tree Classifier
+model = DecisionTreeClassifier(criterion='entropy', random_state=0)
+model.fit(X_train, y_train)
+
+# 5. Make predictions
+y_pred = model.predict(X_test)
+
+# 6. Evaluate the model
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# 7. Visualize the Decision Tree
+plt.figure(figsize=(12,8))
+tree.plot_tree(model, feature_names=X.columns, class_names=['No','Yes'], filled=True)
+plt.show()
+
+---------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,74 @@
+##SLIP 9A,20A
+## Implement Ridge Regression and Lasso regression model using boston_houses.csv  
+##and take only ‘RM’ and ‘Price’ of the houses. Divide the data as training and testing  
+##data. Fit line using Ridge regression and to find price of a house if it contains 5 rooms 
+##and compare results
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import Ridge, Lasso
+from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
+
+# Dummy dataset
+df = pd.DataFrame({'RM':[6,5.5,6.2,5.9,6.5,5,6.8,5.8,6.1,5.2],
+                   'Price':[21,18,24,20,25,15,28,19,23,16] } )
+
+X, y = df[['RM']], df['Price']
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=0)
+
+# Ridge & Lasso
+ridge, lasso = Ridge(alpha=1.0).fit(X_train,y_train), Lasso(alpha=0.1).fit(X_train,y_train)
+y_pred_ridge, y_pred_lasso = ridge.predict(X_test), lasso.predict(X_test)
+
+# Predictions for 5 rooms
+print("Ridge MSE:", mean_squared_error(y_test,y_pred_ridge))
+print("Lasso MSE:", mean_squared_error(y_test,y_pred_lasso))
+print("Price (5 rooms) - Ridge:", ridge.predict([[5]])[0])
+print("Price (5 rooms) - Lasso:", lasso.predict([[5]])[0])
+
+# Plot
+plt.scatter(X,y,color='blue')
+plt.plot(X,ridge.predict(X),color='red',label='Ridge')
+plt.plot(X,lasso.predict(X),color='green',label='Lasso')
+plt.xlabel('RM'); plt.ylabel('Price'); plt.legend(); plt.show()
+----------------------------------------------------------------------------------------------------
+##SLIP 9B,21B,24B
+ ##Write a python program to implement Linear SVM using UniversalBank.csv
+
+import pandas as pd
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+
+# Sample dataset
+df = pd.DataFrame({
+    'Age':[25,45,35,50,23,40,55,60,35,41],
+    'Income':[50,100,60,90,45,80,120,150,70,95],
+    'Family':[1,2,2,3,1,2,2,3,1,2],
+    'CCAvg':[1.5,2.5,2.0,3.0,1.2,2.8,3.5,4.0,2.2,2.7],
+    'Education':[1,2,2,1,1,2,2,1,1,2],
+    'Personal Loan':[0,1,0,1,0,1,1,1,0,1]
+})
+
+# Features & target
+X = df.drop('Personal Loan', axis=1)
+y = df['Personal Loan']
+
+# Train-test split
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=42)
+
+# Scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Train Linear SVM
+model = SVC(kernel='linear')
+model.fit(X_train, y_train)
+
+# Predict & evaluate
+y_pred = model.predict(X_test)
+print(f'Accuracy: {accuracy_score(y_test, y_pred)*100:.2f}%')
+-----------------------------------------------------------------------------------------------
