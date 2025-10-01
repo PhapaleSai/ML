@@ -1,0 +1,81 @@
+
+### M.Sc. CS Sem-III ML Practicals – Short Notes
+
+**1. Define Machine Learning with advantages, disadvantages & applications.**
+ML is a field where computers learn patterns from data without being explicitly programmed.
+✔ Advantages: automation, prediction; ✘ Disadvantages: data dependency, bias; 🌐 Applications: healthcare, finance, NLP.
+
+**2. What are the main issues in Machine Learning?**
+Main issues: quality of data, overfitting/underfitting, feature selection, scalability, interpretability.
+
+**3. What Are the Different Types of Machine Learning?**
+Supervised (labeled data), Unsupervised (unlabeled data), Semi-supervised, Reinforcement (learning by reward/penalty).
+
+**4. Define Classification and Clustering.**
+Classification assigns data into predefined categories.
+Clustering groups similar data points without predefined labels.
+
+**5. Steps involved in developing a ML application.**
+Collect data → Preprocess → Split datasets → Train model → Evaluate → Deploy.
+
+**6. Training, Testing, and Validation datasets.**
+Training data builds the model, Validation tunes hyperparameters, Testing checks final performance.
+
+**7. What is cross-validation?**
+Cross-validation splits data into multiple folds to ensure the model generalizes well.
+
+**8. Overfitting and Underfitting.**
+Overfitting = model too complex, memorizes noise.
+Underfitting = model too simple, fails to capture patterns.
+
+**9. Performance measures in ML.**
+Accuracy, Precision, Recall, F1-score, ROC-AUC, MSE, R² depending on task.
+
+**10. Recall, Precision, R², Accuracy, Specificity.**
+
+* Recall: ability to detect positives.
+* Precision: correctness of predicted positives.
+* R²: variance explained by regression model.
+* Accuracy: overall correctness.
+* Specificity: ability to detect negatives.
+
+**11. What is F1 Score?**
+F1 is the harmonic mean of Precision and Recall.
+It balances false positives and false negatives.
+
+**12. Training Set and Test Set allocation.**
+Training = learn, Test = evaluate unseen data.
+Common split: 70% train, 15% validation, 15% test.
+
+**13. Handling Missing/Corrupted Data.**
+Remove rows/columns, or impute using mean/median/mode, or use advanced imputation methods.
+
+**14. Confusion Matrix.**
+It shows True Positive, True Negative, False Positive, False Negative for classification models.
+
+**15. Machine Learning vs Deep Learning.**
+ML uses algorithms on features; Deep Learning uses neural networks with feature extraction automatically.
+
+**16. Ridge, Lasso, ElasticNet.**
+Ridge: L2 regularization, shrinks coefficients.
+Lasso: L1, does feature selection. ElasticNet: mix of both.
+
+**17. Naïve Bayes algorithm. Why it is used?**
+Probabilistic classifier using Bayes theorem with independence assumption.
+Used for spam filtering, text classification, sentiment analysis.
+
+**18. Decision Tree, SVM, KNN (short note).**
+
+* Decision Tree: splits data by features.
+* SVM: finds optimal separating hyperplane.
+* KNN: classifies based on nearest neighbors.
+
+**19. Linear and Multi-linear Regression.**
+Linear regression predicts target using one feature.
+Multi-linear regression uses multiple features.
+
+**20. What is PCA?**
+Principal Component Analysis reduces dimensionality.
+It projects data onto fewer uncorrelated components.
+
+---
