@@ -48,7 +48,7 @@ from sklearn.cluster import AgglomerativeClustering
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# csv link :- https://www.kaggle.com/code/prashant111/a-guide-on-xgboost-hyperparameters-tuning
+# csv link :- https://www.kaggle.com/code/prashant111/a-guide-on-xgboost-hyperparameters-tuning/input
 
 df = pd.read_csv("Wholesale_customers_data.csv")
 # Filter region, scale, and cluster
@@ -60,4 +60,5 @@ X['Cluster'] = AgglomerativeClustering(n_clusters=2, linkage='ward').fit_predict
 sns.scatterplot(data=X, x='Fresh', y='Grocery', hue='Cluster', palette="viridis")
 plt.title("Agglomerative Clustering (Region 1)")
 plt.show()
+
 ------------------------------------------------------------------------------------------------------------------------------------------------
